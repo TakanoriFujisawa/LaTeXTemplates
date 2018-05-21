@@ -1,0 +1,76 @@
+%!TEX encoding = UTF-8 Unicode
+%!TEX root = manuscript.tex
+%%% APSIPA 向け LaTeX テンプレート (プリアンブル)
+
+%% フォント関連
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,newtxtext}
+\normalfont % fd ファイルを読み込ませる
+\DeclareFontShape{T1}{\rmdefault}{m}{sc}{<-> ptmrc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{b}{sc}{<-> ptmbc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{bx}{sc}{<-> ptmbc8t}{}
+
+\usepackage{amsmath,amssymb,amsfonts,bm,mathtools}
+
+%% 日本語が入らないようにする
+\usepackage[ascii]{inputenc}
+
+\usepackage{graphicx,color,xcolor}
+\ifdefined\pfmtname
+   % 日本語フォントの定義がなく，Warning が出るのでその対処
+   % 1. IEEEtran のオプションに nofonttune を入れる (単語間スペース変更などの処理を無効に)
+   % 2. 以下の日本語フォントを定義
+   % 3. \CLASSOPTIONnofonttune を false にすると \begin{document} 時に fonttune してくれる
+   %    ... のだがデフォルトの方が見やすいような気がするのでそのまま
+   \DeclareFontShape{JY1}{mc}{m}{n}{<-> s*[0.961] jis}{}
+   \DeclareFontShape{JY1}{gt}{m}{n}{<-> s*[0.961] jisg}{}
+   \DeclareFontShape{JT1}{mc}{m}{n}{<-> s*[0.961] tmin10}{}
+   \DeclareFontShape{JT1}{gt}{m}{n}{<-> s*[0.961] tgoth10}{}
+   \DeclareFontShape{JY1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareRelationFont{JY1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JT1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JY1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+   \DeclareRelationFont{JT1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+   % \CLASSOPTIONnofonttunefalse
+\fi
+
+%% その他役に立つパッケージ
+\usepackage{array,balance,cite,url,algorithm,algorithmic}
+
+%% Subcaption の設定
+\iffalse\else
+\usepackage[compatibility=false]{caption}
+\DeclareCaptionLabelSeparator{apsipa}{.\nobreakspace\nobreakspace\space}
+\captionsetup[table]{font=footnotesize,textfont=sc,justification=centering,labelsep=newline,aboveskip=10pt,belowskip=0pt}
+\captionsetup[figure]{font=footnotesize,labelsep=apsipa,aboveskip=12pt,belowskip=0pt}
+\usepackage[font=footnotesize]{subcaption}
+\fi
+
+\providecommand{\subcaption}[1]{\hbox to \hsize{\hss\footnotesize #1\hss}}
+
+
+%% 数式コマンドの補完
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+%% 参考文献スタイルの指定
+\bibliographystyle{IEEEtran}
+
+\definecolor{red}{rgb}{.75,0,0}
+
+
