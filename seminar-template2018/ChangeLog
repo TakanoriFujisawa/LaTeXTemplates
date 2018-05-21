@@ -1,0 +1,12 @@
+2016-06-22  Takanori Fujisawa  <fujisawa@tkhm.elec.keio.ac.jp>
+	* バージョン 1.1
+	* ikelab-seminar.cls フォント指定を元に戻す, エンコードを UTF-8 に
+	* preamble.tex パッケージ追加 lmodern, amsfonts, newtxtext, xcolor, url,
+		TeXShop 向けエンコード指定をなくす，!TEX root 指定を追加
+	* seminar.tex  テンプレートの説明を改訂, BibTeX を使わずに thebibliography 1 本に
+
+2015-07-07  藤沢貴典  <takanori@ikeharaPro2014-2s-Mac-Pro.local>
+	* バージョン 1.0 作成
+
+
+

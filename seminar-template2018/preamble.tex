@@ -1,0 +1,39 @@
+%!TEX root = seminar.tex
+%
+% 春学期最終輪講用プリアンブル
+%
+
+%% パッケージ
+\usepackage[T1]{fontenc}
+
+% 数式フォント
+\usepackage{lmodern}
+
+% 本文英語フォント
+\usepackage{newtxtext}
+
+\usepackage[cmex10]{amsmath}
+\usepackage{amssymb,amsfonts,mathtools,bm}
+\usepackage[dvipdfmx]{graphicx,xcolor}
+
+\usepackage{caption}
+% IEEE 形式のキャプションに設定
+\captionsetup[table]{font=footnotesize,labelsep=newline,
+                     justification=centering,singlelinecheck=off}
+\DeclareCaptionLabelSeparator{IEEEfigurelabelsep}{\nobreakspace\nobreakspace}
+\captionsetup[figure]{font=footnotesize,labelsep=IEEEfigurelabelsep}
+\usepackage[font=footnotesize]{subcaption}
+\usepackage{cite,url,array,setspace}
+
+% 数学コマンドの補完
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\maximize}{maximize}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\minimize}{minimize}
+
+% 参考文献表示スタイルを変更
+\bibliographystyle{IEEETran}
+
+
