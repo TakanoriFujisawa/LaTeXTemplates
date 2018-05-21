@@ -1,0 +1,294 @@
+%#!pdflatex
+%
+% PCSJ/IMPS スタイル向けの追加設定
+% 
+% 1. LaTeX 標準の \title, \author と \maketitle でタイトルをフォーマットできるように
+% 2. abstract 環境を定義
+%
+% 日本語版向けの使い方
+% ----------------------------------------
+%  \documentclass[a4paper,10pt]{jsarticle}
+%  \usepackage{pcsjimps-j}
+%  \usepackage{ikelab-pcsjimps}
+%  
+%  \title{日本語タイトル}
+%  \etitle{English Title}
+%  \author{\JEAuthor{}{}{}}
+%  \begin{abstract}
+%     日本語概要
+%  \end{abstract}
+%  \begin{document}
+%     \maketitle
+%     本文を記述 ...
+%  \end{document}
+% ----------------------------------------
+%
+% 英語版向けの使い方
+% ----------------------------------------
+%  \documentclass[a4paper,10pt,english]{jsarticle}
+%  \usepackage{pcsjimps-e}
+%  \usepackage[english]{ikelab-pcsjimps}
+%  
+%  \title{English Title}
+%  \author{\EAuthor{}{}}
+%  \begin{abstract}
+%     English Abstract
+%  \end{abstract}
+%  \begin{document}
+%     \maketitle
+%     Put the contents here ...
+%  \end{document}
+% ----------------------------------------
+%
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesFile{ikelab-pcsjimps.sty}[2017/10/10 Takanori Fujisawa]
+
+% 日本語版 / 英語版の切り替え
+\newif\ifpcsj@japanese
+\pcsj@japanesetrue
+
+% [japanese] 日本語向けの設定を行う
+\DeclareOption{japanese}{\pcsj@japanesetrue}
+
+% [english] 英語向けの設定を行う
+\DeclareOption{english}{\pcsj@japanesefalse}
+
+\ExecuteOptions{japanese}
+
+\ProcessOptions\relax
+
+% --------------------------------
+
+%% ドキュメントクラスの判別とクラス特有の設定
+%  対応するドキュメントクラス
+%    article --> 英語原稿のみ
+%    jarticle --> 日本語原稿のみ
+%    jsarticle --> 日本語原稿 / 英語原稿両方対応，英語原稿の場合は [english] オプション推奨
+\@ifclassloaded{jsarticle}{%
+   \ifpcsj@japanese\else
+      \narrowbaselines
+      \@englishtrue
+   \fi
+}{}
+
+\ifdefined\Cvs\else
+   \newdimen\Cvs
+   \setlength\Cvs{\baselineskip}
+\fi
+
+\frenchspacing
+
+%% title / author / affiliate の定義
+\ifpcsj@japanese
+   \gdef\@jtitle{日本語タイトルを指定してください}
+\fi
+
+\gdef\@etitle{Place the English Title}
+
+\ifpcsj@japanese
+   \gdef\@author{日本語/英語著者名を指定してください}
+   \gdef\@affiliate{日本語/英語の所属を指定してください}
+\else
+   \gdef\@author{Place the author name in English}
+   \gdef\@affiliate{Place English affiliation}
+\fi
+
+\newcommand{\jtitle}[1]{\gdef\@jtitle{#1}}
+\newcommand{\etitle}[1]{\gdef\@etitle{#1}}
+\newcommand{\affiliate}[1]{\gdef\@affiliate{#1}}
+
+\ifpcsj@japanese
+   \let\title\jtitle
+\else
+   \let\title\etitle
+\fi
+
+%% abstract 環境の定義
+\ifdefined\@abstractbox\else
+   \newbox\@abstractbox
+\fi
+
+\def\abstract{%
+   \global\setbox\@abstractbox\hbox%
+      \bgroup%
+         \hskip.025\textwidth
+         \begin{minipage}{.95\textwidth}
+            \ifpcsj@japanese
+               \baselineskip 1.2em
+            \else
+               \baselineskip 1.1em
+            \fi
+            {%
+               \bfseries
+               % テンプレでは日本語版も英語版も Abstract: の様子
+               \ifpcsj@japanese
+                  Abstract:~
+               \else
+                  Abstract:~
+               \fi
+            }\ignorespaces%
+}
+
+\def\endabstract{%
+         \end{minipage}
+      \egroup%
+}
+
+%% \maketitle のフォーマット
+\def\@maketitle{%
+   \setbox\@tempboxa\vbox{%
+      \bgroup
+         \centering
+            %% タイトル
+            {
+               % 表題 16 pt (\LARGE の 17 pt よりちょっと小さく)
+               % 行間 22 pt (\LARGE の 25 pt より小さく)
+               \fontsize{16pt}{22pt}\selectfont
+               \ifpcsj@japanese%
+                  \@jtitle%
+                  \par%
+                  \vskip.2\baselineskip%
+                  % 日本語論文のときは英語タイトルを少し小さく
+                  \fontsize{12pt}{15pt}\selectfont%
+               \fi%
+               \@etitle%
+               \par%
+            }
+            \vskip.6\baselineskip
+            %% 著者
+            {
+               \@author
+               \par
+            }
+            \vskip.6\baselineskip
+            %% 所属
+            {
+               \@affiliate\par
+            }
+      \egroup
+      %
+      \vskip.6\baselineskip
+      %
+      %% 概要
+      \bgroup
+         \leavevmode
+         \unhbox\@abstractbox\par
+         \nointerlineskip
+         \vskip\baselineskip
+         % -1zh --> -10pt
+         %\vskip-10pt
+         %\vskip0pt
+      \egroup
+   }% ends \setbox\@tempboxa
+   %
+   \@tempdima\ht\@tempboxa
+   \advance \@tempdima \dp\@tempboxa
+   \divide \@tempdima \Cvs
+   \@tempcnta=\@tempdima
+   \advance \@tempcnta \@ne
+   \vbox to \@tempcnta\Cvs{%
+      \box\@tempboxa\vss
+   }%
+}
+
+%% section, subsection の余白を調整
+% \@startsection の使い方は http://www.h4.dion.ne.jp/~latexcat/intro/i7-r2.html 参照
+
+\ifpcsj@japanese
+   
+   % 日本語: jsarticle.cls の値をベースに前アキ，後ろアキを変更
+   
+   \renewcommand{\section}{\@startsection{section}{1}{\z@}%
+      % 前アキ, >= 0 の値で見出し直後の段落を字下げする設定に (0 含む)
+      {.5\Cvs}%
+      % 後アキ, > 0 の値で見出しの後を改行させて空白挿入, <= 0 の値で見出しの後に改行させずに文章が続く
+      {.2\Cvs}%
+      {\normalfont\large\bfseries}}
+
+   \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+      {.5\Cvs}%
+      {.2\Cvs}%
+      {\normalfont\normalsize\bfseries}}
+
+   \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+      {.5\Cvs}%
+      {.2\Cvs}%
+      {\normalfont\normalsize\bfseries}}
+
+
+\else
+   
+   % 英語: ↑ の値と同じ余白値だが，見出し直後はインデントしないようにする
+   % (\@startsection の第4引数を負値にする)
+   
+   \renewcommand{\section}{\@startsection {section}{1}{\z@}%
+      {-.5\Cvs}%
+      {.2\Cvs}%
+      {\normalfont\large\bfseries}}
+
+   \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+      {-.5\Cvs}%
+      {.2\Cvs}%
+      {\normalfont\normalsize\bfseries}}
+
+   \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+      {-.5\Cvs}%
+      {.2\Cvs}%
+      {\normalfont\normalsize\bfseries}}
+
+\fi
+
+% 参考文献リストのフォントサイズを小さく
+\renewenvironment{thebibliography}[1]{%
+   % 以下の 2 つは jsarticle 固有のマクロ，ref 等の参照時に 第??節 のようにするためのもの
+   %   \def\presectionname{第}
+   %   \def\postsectionname{節}
+   \global\let\presectionname\relax
+   \global\let\postsectionname\relax
+   \section*{\refname}
+   % 参考文献リストフォントサイズを指定 (IEEETran.cls はこのサイズを使用している)
+   \footnotesize
+   % 以下は article / jarticle / jsarticle で使われているものをそのまま
+   \@mkboth{\refname}{\refname}%
+   \list%
+      {\@biblabel{\@arabic\c@enumiv}}%
+      {%
+         \settowidth\labelwidth{\@biblabel{#1}}%
+         \leftmargin\labelwidth
+         \advance\leftmargin\labelsep
+         \@openbib@code
+         \usecounter{enumiv}%
+         \let\p@enumiv\@empty
+         \renewcommand\theenumiv{\@arabic\c@enumiv}%
+      }%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty\clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m%
+}{
+      \def\@noitemerr{%
+         \@latex@warning{Empty `thebibliography' environment}%
+      }%
+   \endlist%
+}
+
+%% レガシーなコマンドの削除
+\renewenvironment{eqnarray}{\align}{\endalign}
+\let\mc\undefined
+\let\gt\undefined
+\let\rm\undefined
+\let\sf\undefined
+\let\tt\undefined
+\let\bf\undefined
+\let\it\undefined
+\let\sl\undefined
+\let\sc\undefined
+\let\cal\undefined
+\let\mit\undefined
+
+%% 参考文献スタイルを設定
+\bibliographystyle{IEEEtran}
+
+\endinput

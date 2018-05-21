@@ -1,0 +1,55 @@
+
+% フォント関連
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{newtxtext}
+
+\usepackage{amssymb,amsfonts,bm,mathtools}
+
+% 画像・色のドライバー指定
+\usepackage{graphicx,color,xcolor}
+\usepackage[bookmarks=false,hidelinks]{hyperref}
+\ifdefined\pfmtname
+   \usepackage{pxjahyper}
+\fi
+
+% その他役に立つパッケージ
+\usepackage{array}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{algorithm,algorithmic}
+
+% 数学コマンドの補完
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% 白黒印刷のために赤をちょっと暗くする
+\definecolor{red}{rgb}{0.75,0,0}
+
+\usepackage[compatibility=false]{caption}
+
+\makeatletter
+   \ifpcsj@japanese
+      \captionsetup{labelsep=quad}
+   \fi
+\makeatother
+
+\usepackage[belowskip=1.2em]{subcaption}
+
+\ifdefined\pfmtname
+   \DeclareFontShape{JY1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+\fi
