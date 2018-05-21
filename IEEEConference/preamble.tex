@@ -1,0 +1,83 @@
+%!TEX root = manuscript.tex
+%%% IEEE 系学会向け LaTeX テンプレート (プリアンブル)
+
+% フォント関連
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,newtxtext}
+\normalfont % fd ファイルを読み込ませる
+\DeclareFontShape{T1}{\rmdefault}{m}{sc}{<-> ptmrc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{b}{sc}{<-> ptmbc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{bx}{sc}{<-> ptmbc8t}{}
+
+\usepackage{amsmath,amssymb,amsfonts,bm,mathtools}
+
+% 日本語が入らないようにする
+\usepackage[ascii]{inputenc}
+
+\ifx\pfmtname\undefined
+   \usepackage{graphicx,color,xcolor}
+\else
+   \usepackage[dvipdfmx]{graphicx,color,xcolor}
+   % 日本語フォントの定義がなく，Warning が出るのでその対処
+   % 1. IEEEtran のオプションに nofonttune を入れる (単語間スペース変更などの処理を無効に)
+   % 2. 以下の日本語フォントを定義
+   % 3. \CLASSOPTIONnofonttune を false にすると \begin{document} 時に fonttune してくれる
+   %    ... のだがデフォルトの方が見やすいような気がするのでそのまま
+   \DeclareFontShape{JY1}{mc}{m}{n}{<-> s*[0.961] jis}{}
+   \DeclareFontShape{JY1}{gt}{m}{n}{<-> s*[0.961] jisg}{}
+   \DeclareFontShape{JT1}{mc}{m}{n}{<-> s*[0.961] tmin10}{}
+   \DeclareFontShape{JT1}{gt}{m}{n}{<-> s*[0.961] tgoth10}{}
+   \DeclareFontShape{JY1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareRelationFont{JY1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JT1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JY1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+   \DeclareRelationFont{JT1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+   % \CLASSOPTIONnofonttunefalse
+\fi
+
+% subcaption のために caption のセットアップを行う．(conference style)
+\usepackage[compatibility=false,aboveskip=.3em,belowskip=0pt]{caption}
+\DeclareCaptionLabelSeparator{ieeefig}{.\nobreakspace\nobreakspace}
+\captionsetup[table]{font=footnotesize,textfont=sc,justification=centering,labelsep=newline}
+\captionsetup[figure]{font=footnotesize,labelsep=ieeefig}
+\usepackage[font=footnotesize,labelformat=simple,aboveskip=.5em,belowskip=.8em]{subcaption}
+\captionsetup[subtable]{textfont=md}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\renewcommand{\thesubtable}{(\alph{subtable})}
+
+
+% その他役に立つパッケージ
+\usepackage{array}
+\usepackage{balance}
+\usepackage{cite}
+\usepackage{algorithm,algorithmic,url}
+\usepackage{lipsum}
+
+\bibliographystyle{IEEEtran}
+
+% 数学コマンドの補完
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+
+% ハイフネーションが変な所があれば
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\definecolor{red}{rgb}{.75,0,0}
+
+% Fig. の後のスペースが広がらないように frenchspacing にする
+\frenchspacing
