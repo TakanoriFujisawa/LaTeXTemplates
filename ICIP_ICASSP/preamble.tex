@@ -1,0 +1,69 @@
+%!TEX root = manuscript.tex
+%%% ICIP/ICASSP 向け LaTeX テンプレート (プリアンブル)
+
+% フォント関連
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,newtxtext}
+\normalfont % fd ファイルを読み込ませる
+\DeclareFontShape{T1}{\rmdefault}{m}{sc}{<-> ptmrc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{b}{sc}{<-> ptmbc8t}{}
+\DeclareFontShape{T1}{\rmdefault}{bx}{sc}{<-> ptmbc8t}{}
+
+\usepackage{amsmath,amssymb,amsfonts,bm,mathtools}
+\usepackage{xspace,balance,cite,array,makecell}
+\usepackage{algorithm,algorithmic,url,lipsum}
+
+% 日本語が入らないようにする
+\usepackage[ascii]{inputenc}
+
+\ifx\pfmtname\undefined
+   \usepackage{graphicx,color}
+   \usepackage[table]{xcolor}
+\else
+   \usepackage[dvipdfmx]{graphicx,color}
+   \usepackage[dvipdfmx,table]{xcolor}
+   \DeclareFontShape{JY1}{mc}{m}{n}{<-> s*[0.961] jis}{}
+   \DeclareFontShape{JY1}{gt}{m}{n}{<-> s*[0.961] jisg}{}
+   \DeclareFontShape{JT1}{mc}{m}{n}{<-> s*[0.961] tmin10}{}
+   \DeclareFontShape{JT1}{gt}{m}{n}{<-> s*[0.961] tgoth10}{}
+   \DeclareFontShape{JY1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JY1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{it}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sl}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{mc}{m}{sc}{<->ssub*mc/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{gt}{m}{sl}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{it}{<->ssub*gt/m/n}{}
+   \DeclareFontShape{JT1}{mc}{bx}{sl}{<->ssub*gt/m/n}{}
+   \DeclareRelationFont{JY1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JT1}{mc}{it}{}{\encodingdefault}{\rmdefault}{it}{}
+   \DeclareRelationFont{JY1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+   \DeclareRelationFont{JT1}{gt}{it}{}{\encodingdefault}{\rmdefault}{bx}{it}
+\fi
+
+% subcaption のために caption のセットアップを行う．(conference style)
+\usepackage[compatibility=false]{caption}
+\captionsetup[table]{font=footnotesize,belowskip=0em,aboveskip=0.8em}
+\captionsetup[figure]{font=footnotesize,labelsep=period,belowskip=0em,aboveskip=0.8em}
+\usepackage[font=footnotesize,labelformat=simple,belowskip=0em,aboveskip=.4em]{subcaption}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\renewcommand{\thesubtable}{(\alph{subtable})}
+
+% 数学コマンドの補完
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\prox}{prox}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\minimize}{minimize}
+
+% 1 段組みに入る図の数を調整
+\renewcommand{\dbltopfraction}{.8}
+\renewcommand{\textfraction}{.1}
+\setcounter{topnumber}{3}
+
+\bibliographystyle{IEEEbib}
